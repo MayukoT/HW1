@@ -2,7 +2,8 @@
 
 #include<iostream>
 #include<string>
-#include<vector>
+
+#define ILL 16
 
 using namespace std;
 
@@ -10,34 +11,43 @@ using namespace std;
 //not sort all of the word in dic.
 //pick up a word and sort
 //
+int maxlen=0;
 
 class Words
 {
-private:
-  string name;
-  string arr;
-  int len;
 public:
+  string name;
+  int len;
+  bool jud;
   Words(){}
   Words(string n){
-    arr<<
 }
 
     
-{
-
-  }  
 };
 
+    
 
-string read_word(void){
-  string letters;
-  cout<<"please put 16 letters."<<endl;
-  cin>>letters;
-  return letters;
+void compare_length(string a,string b){
+
+}
+
+//read 16 letters from console
+//while the length is not good, repeat reading
+string read_letter(){
+  string l;
+
+  do{
+  cout << "please put " << ILL <<" letters."<<endl;
+  cout << "your input is:"<<endl;
+  cin >> l;
+  }while(l.size()!=ILL);
+
+  return l;
 }
 
 
-int main(void){
-read_word
+
+int main(){
+  read_letter();
 }
