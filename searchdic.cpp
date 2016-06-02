@@ -11,50 +11,57 @@
 
 using namespace std;
 
-int maxlen=0;
+int maxlen=ILL;
 
-class Words
+//not used. changed to pair
+/*class Words
 {
 public:
   string wd;
   int len;
-  bool jud;
   Words(){}
   Words(string w){
     wd = w;
     len = w.size();
-    if(len>ILL){jud = false;}
-    else{jud = true;}
   }  
 };
+*/
 
-Words newdic[DICLEN];
+//vector  this is a new dic
+vector<pair<int,string> > newdic;
+
 
 //open dic
-int open_dic(){
+ifstream open_dic(){
   ifstream dic("/usr/share/dict/words");
   if(dic.fail()){
     cout<<"failed to open file"<<endl;
-  } 
+  }
+  return dic;
 }
 
-//make a new dic of class Words
+
+//make a new dic (also has length of the word)
 int mk_newdic(ifstream ifs){
-  int i=0;
   string s;
-  while(){
+  while(!ifs.eof()){
     getline(ifs, s);
-    Words wds(s);
-    newdic[i]=wds;
-  }  
+    if(s.size()<=ILL){
+      newdic.push_back(<s,s.size()>);
+    }
+  }
+  sort(newdic.begin()&left,newdic.end()&right,greater<int>());
+  return 0;  
 }
+
 
 //length of inp-dw
 int compare_length(string inp,string dw){
   int dif;
-  dif = inp.size-dw.size;
+  dif = inp.size()-dw.size();
   return dif;
 }
+
 
 //read 16 letters from console
 //while the length is not good, repeat reading
@@ -68,40 +75,40 @@ string read_letters(){
   return l;
 }
 
+
 //sort charaters in the word
 string sort_letters(string inp){
   sort(inp.begin(),inp.end());
   return inp;
 }
 
+
 //compare input and dicwords
 void compare(string str){
   long i=0;
-  for(){
-    //when word len is longer than 16 :skip
-    if(newdic[i].len>ILL){
-      i++;
-    }
-    //when word len is exactly 16
-    else if(newdic.len=ILL){
+  for(!newdic[i]==EOF){
+    if(newdic[i].left=ILL){
       string arr;
-      arr=sort_letters(newdic[i].wd);
+      arr=sort_letters(newdic[i].second);
       if(arr.equals(str)){
-	maxlen=newdic[i].len;
+	maxlen=newdic[i].first;
       }
       i++;
     }      
-    else if(newdic[i].len<ILL){
-      if(){
-      }
+    else if(newdic[i].first<ILL){
+
+      
     }
   }
 }
 
 
+
 //main
 int main(){
   string str;
+  mk_newdic(open_dic());
   str=sort_letters(read_letters());
+  
 }
 
