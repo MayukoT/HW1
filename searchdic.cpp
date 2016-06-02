@@ -19,7 +19,7 @@ vector<dicpair> newdic;
 
 
 //open dic
-int open_dic(){
+/*int open_dic(ifstream dic){
   ifstream dic("/usr/share/dict/words");
   if(dic.fail()){
     cout<<"failed to open file"<<endl;
@@ -27,7 +27,7 @@ int open_dic(){
   }
   return 0;
 }
-
+*/
 
 //make a new dic (also has length of the word)
 int mk_newdic(ifstream ifs){
@@ -41,14 +41,6 @@ int mk_newdic(ifstream ifs){
   //have to make operator
   sort(newdic.begin(),newdic.end(),greater<pair<int,string> >());
   return 0;  
-}
-
-//it won't be needed
-//length of inp-dw
-int compare_length(string inp,string dw){
-  int dif;
-  dif = inp.size()-dw.size();
-  return dif;
 }
 
 
@@ -109,6 +101,17 @@ void compare(string str){
 
 //main
 int main(){
+  string str;
+  str=read_letters();
+  ifstream dic;
+  dic.open("/usr/share/dict/words");
+  if(dic.fail()){
+    cout<<"failed to open file"<<endl;
+    exit(EXIT_FAILURE);
+  }
+  mk_newdic(dic);
+  compare(str);
 
+  return 0;
 }
 
