@@ -13,39 +13,46 @@ using namespace std;
 
 int maxlen=0;
 
-
 class Words
 {
+public:
   string wd;
   int len;
   bool jud;
-public:
   Words(){}
   Words(string w){
-    wd << w;
-    len << w.size();
-    if(len>ILL){jud << false;}
-    else{jud << true;}
+    wd = w;
+    len = w.size();
+    if(len>ILL){jud = false;}
+    else{jud = true;}
   }  
 };
+
+Words newdic[DICLEN];
 
 //open dic
 int open_dic(){
   ifstream dic("/usr/share/dict/words");
-  if(!dic){
+  if(dic.fail()){
     cout<<"failed to open file"<<endl;
-    exit(EXIT_FAILURE);
   } 
 }
 
-int mk_newdic(){
-
+//make a new dic of class Words
+int mk_newdic(ifstream ifs){
+  int i=0;
+  string s;
+  while(){
+    getline(ifs, s);
+    Words wds(s);
+    newdic[i]=wds;
+  }  
 }
 
 //length of inp-dw
 int compare_length(string inp,string dw){
   int dif;
-  dif << (inp.size-dw.size);
+  dif = inp.size-dw.size;
   return dif;
 }
 
@@ -61,17 +68,40 @@ string read_letters(){
   return l;
 }
 
-//sort
-string sort_letters(string inp, int ilen){
+//sort charaters in the word
+string sort_letters(string inp){
   sort(inp.begin(),inp.end());
   return inp;
 }
 
-//main
-int main(){
-  read_letters();
+//compare input and dicwords
+void compare(string str){
+  long i=0;
+  for(){
+    //when word len is longer than 16 :skip
+    if(newdic[i].len>ILL){
+      i++;
+    }
+    //when word len is exactly 16
+    else if(newdic.len=ILL){
+      string arr;
+      arr=sort_letters(newdic[i].wd);
+      if(arr.equals(str)){
+	maxlen=newdic[i].len;
+      }
+      i++;
+    }      
+    else if(newdic[i].len<ILL){
+      if(){
+      }
+    }
+  }
 }
 
-void compare(){
 
-} 
+//main
+int main(){
+  string str;
+  str=sort_letters(read_letters());
+}
+
