@@ -1,29 +1,31 @@
 //searchdic.cpp
 
-#include<iostream>
-#include<string>
-#include<vector>
-#include<algorithm>
-#include<fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <fstream>
+
 
 #define ILL 16
-#define DICLEN 1000000
 
 using namespace std;
 
 int maxlen=0;
 
-//vector  this is a new dic
-vector<pair<int,string> > newdic;
+//these are for a new dic
+typedef pair<int,string> dicpair;
+vector<dicpair> newdic;
 
 
 //open dic
-ifstream open_dic(){
+int open_dic(){
   ifstream dic("/usr/share/dict/words");
   if(dic.fail()){
     cout<<"failed to open file"<<endl;
+    exit(EXIT_FAILURE);
   }
-  return dic;
+  return 0;
 }
 
 
@@ -31,16 +33,17 @@ ifstream open_dic(){
 int mk_newdic(ifstream ifs){
   string s;
   while(!ifs.eof()){
-    getline(ifs, s);
+    getline(ifs,s);
     if(s.size()<=ILL){
-      newdic.push_back(<s,s.size()>);
+      newdic.push_back(dicpair(s.size(),s));
     }
   }
-  sort(newdic.begin()&left,newdic.end()&right,greater<int>());
+  //have to make operator
+  sort(newdic.begin(),newdic.end(),greater<pair<int,string> >());
   return 0;  
 }
 
-
+//it won't be needed
 //length of inp-dw
 int compare_length(string inp,string dw){
   int dif;
@@ -73,10 +76,10 @@ string sort_letters(string inp){
 void compare(string str){
   long i=0;
   string arr;
-  for((!newdic[i]==EOF)||(newdic[i].first>=maxlen)){
-    if(newdic[i].left=ILL){
+  while(newdic[i].first>=maxlen){
+    if(newdic[i].first==ILL){
       arr=sort_letters(newdic[i].second);
-      if(arr.equals(str)){
+      if(arr==str){
 	maxlen=newdic[i].first;
 	cout<<newdic[i].second<<endl;
       }
@@ -86,7 +89,7 @@ void compare(string str){
       int j=0,k=0;
       arr=sort_letters(newdic[i].second);
       while(k<=ILL){
-	if(arr[j]=str[k]){
+	if(arr[j]==str[k]){
 	  if(j==arr.size()){
 	    maxlen=newdic[i].first;
 	    cout<<newdic[i].second<<endl;
@@ -98,8 +101,7 @@ void compare(string str){
 	else{
 	  k++;
 	}
-      }
-      
+      }      
     }
   }
 }
@@ -107,9 +109,6 @@ void compare(string str){
 
 //main
 int main(){
-  string str;
-  mk_newdic(open_dic());
-  str=sort_letters(read_letters());
-  
+
 }
 
