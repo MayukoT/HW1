@@ -11,21 +11,7 @@
 
 using namespace std;
 
-int maxlen=ILL;
-
-//not used. changed to pair
-/*class Words
-{
-public:
-  string wd;
-  int len;
-  Words(){}
-  Words(string w){
-    wd = w;
-    len = w.size();
-  }  
-};
-*/
+int maxlen=0;
 
 //vector  this is a new dic
 vector<pair<int,string> > newdic;
@@ -86,22 +72,37 @@ string sort_letters(string inp){
 //compare input and dicwords
 void compare(string str){
   long i=0;
-  for(!newdic[i]==EOF){
+  string arr;
+  for((!newdic[i]==EOF)||(newdic[i].first>=maxlen)){
     if(newdic[i].left=ILL){
-      string arr;
       arr=sort_letters(newdic[i].second);
       if(arr.equals(str)){
 	maxlen=newdic[i].first;
+	cout<<newdic[i].second<<endl;
       }
       i++;
     }      
     else if(newdic[i].first<ILL){
-
+      int j=0,k=0;
+      arr=sort_letters(newdic[i].second);
+      while(k<=ILL){
+	if(arr[j]=str[k]){
+	  if(j==arr.size()){
+	    maxlen=newdic[i].first;
+	    cout<<newdic[i].second<<endl;
+	    break;
+	  }else{
+	    j++;k=0; 
+	  }	    
+	}
+	else{
+	  k++;
+	}
+      }
       
     }
   }
 }
-
 
 
 //main
